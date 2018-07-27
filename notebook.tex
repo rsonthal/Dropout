@@ -1,0 +1,863 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Untitled}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k}{using} \PY{n}{Flux}\PY{p}{,}\PY{n}{Plots}
+        \PY{n}{plotly}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}1}]:} Plots.PlotlyBackend()
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{using} \PY{n}{MNIST}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{xtrn}\PY{p}{,}\PY{n}{ytr} \PY{o}{=} \PY{n}{traindata}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+        \PY{n}{xtst}\PY{p}{,}\PY{n}{yts} \PY{o}{=} \PY{n}{testdata}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+        
+        \PY{n}{xtrn} \PY{o}{=} \PY{n}{xtrn}\PY{o}{/}\PY{l+m+mi}{256}
+        \PY{n}{xtst} \PY{o}{=} \PY{n}{xtst}\PY{o}{/}\PY{l+m+mi}{256}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textcolor{ansi-yellow-intense}{\textbf{WARNING: }}\textcolor{ansi-yellow}{Array(::Type\{T\}, m::Int, n::Int) where T is deprecated, use Array\{T\}(m, n) instead.}
+Stacktrace:
+ [1] \textbf{depwarn}\textbf{(}::String, ::Symbol\textbf{)} at \textbf{./deprecated.jl:70}
+ [2] \textbf{Array}\textbf{(}::Type\{Float64\}, ::Int64, ::Int64\textbf{)} at \textbf{./deprecated.jl:57}
+ [3] \textbf{traindata}\textbf{(}\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/MNIST/src/MNIST.jl:88}
+ [4] \textbf{include\_string}\textbf{(}::String, ::String\textbf{)} at \textbf{./loading.jl:522}
+ [5] \textbf{include\_string}\textbf{(}::Module, ::String, ::String\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/Compat/src/Compat.jl:88}
+ [6] \textbf{execute\_request}\textbf{(}::ZMQ.Socket, ::IJulia.Msg\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/IJulia/src/execute\_request.jl:158}
+ [7] \textbf{(::Compat.\#inner\#18\{Array\{Any,1\},IJulia.\#execute\_request,Tuple\{ZMQ.Socket,IJulia.Msg\}\})}\textbf{(}\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/Compat/src/Compat.jl:378}
+ [8] \textbf{eventloop}\textbf{(}::ZMQ.Socket\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/IJulia/src/eventloop.jl:8}
+ [9] \textbf{(::IJulia.\#\#14\#17)}\textbf{(}\textbf{)} at \textbf{./task.jl:335}
+while loading In[3], in expression starting on line 1
+\textcolor{ansi-yellow-intense}{\textbf{WARNING: }}\textcolor{ansi-yellow}{Array(::Type\{T\}, m::Int) where T is deprecated, use Array\{T\}(m) instead.}
+Stacktrace:
+ [1] \textbf{depwarn}\textbf{(}::String, ::Symbol\textbf{)} at \textbf{./deprecated.jl:70}
+ [2] \textbf{Array}\textbf{(}::Type\{Float64\}, ::Int64\textbf{)} at \textbf{./deprecated.jl:57}
+ [3] \textbf{traindata}\textbf{(}\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/MNIST/src/MNIST.jl:89}
+ [4] \textbf{include\_string}\textbf{(}::String, ::String\textbf{)} at \textbf{./loading.jl:522}
+ [5] \textbf{include\_string}\textbf{(}::Module, ::String, ::String\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/Compat/src/Compat.jl:88}
+ [6] \textbf{execute\_request}\textbf{(}::ZMQ.Socket, ::IJulia.Msg\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/IJulia/src/execute\_request.jl:158}
+ [7] \textbf{(::Compat.\#inner\#18\{Array\{Any,1\},IJulia.\#execute\_request,Tuple\{ZMQ.Socket,IJulia.Msg\}\})}\textbf{(}\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/Compat/src/Compat.jl:378}
+ [8] \textbf{eventloop}\textbf{(}::ZMQ.Socket\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/IJulia/src/eventloop.jl:8}
+ [9] \textbf{(::IJulia.\#\#14\#17)}\textbf{(}\textbf{)} at \textbf{./task.jl:335}
+while loading In[3], in expression starting on line 1
+\textcolor{ansi-yellow-intense}{\textbf{WARNING: }}\textcolor{ansi-yellow}{Array(::Type\{T\}, m::Int, n::Int) where T is deprecated, use Array\{T\}(m, n) instead.}
+Stacktrace:
+ [1] \textbf{depwarn}\textbf{(}::String, ::Symbol\textbf{)} at \textbf{./deprecated.jl:70}
+ [2] \textbf{Array}\textbf{(}::Type\{Float64\}, ::Int64, ::Int64\textbf{)} at \textbf{./deprecated.jl:57}
+ [3] \textbf{testdata}\textbf{(}\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/MNIST/src/MNIST.jl:99}
+ [4] \textbf{include\_string}\textbf{(}::String, ::String\textbf{)} at \textbf{./loading.jl:522}
+ [5] \textbf{include\_string}\textbf{(}::Module, ::String, ::String\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/Compat/src/Compat.jl:88}
+ [6] \textbf{execute\_request}\textbf{(}::ZMQ.Socket, ::IJulia.Msg\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/IJulia/src/execute\_request.jl:158}
+ [7] \textbf{(::Compat.\#inner\#18\{Array\{Any,1\},IJulia.\#execute\_request,Tuple\{ZMQ.Socket,IJulia.Msg\}\})}\textbf{(}\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/Compat/src/Compat.jl:378}
+ [8] \textbf{eventloop}\textbf{(}::ZMQ.Socket\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/IJulia/src/eventloop.jl:8}
+ [9] \textbf{(::IJulia.\#\#14\#17)}\textbf{(}\textbf{)} at \textbf{./task.jl:335}
+while loading In[3], in expression starting on line 2
+\textcolor{ansi-yellow-intense}{\textbf{WARNING: }}\textcolor{ansi-yellow}{Array(::Type\{T\}, m::Int) where T is deprecated, use Array\{T\}(m) instead.}
+Stacktrace:
+ [1] \textbf{depwarn}\textbf{(}::String, ::Symbol\textbf{)} at \textbf{./deprecated.jl:70}
+ [2] \textbf{Array}\textbf{(}::Type\{Float64\}, ::Int64\textbf{)} at \textbf{./deprecated.jl:57}
+ [3] \textbf{testdata}\textbf{(}\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/MNIST/src/MNIST.jl:100}
+ [4] \textbf{include\_string}\textbf{(}::String, ::String\textbf{)} at \textbf{./loading.jl:522}
+ [5] \textbf{include\_string}\textbf{(}::Module, ::String, ::String\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/Compat/src/Compat.jl:88}
+ [6] \textbf{execute\_request}\textbf{(}::ZMQ.Socket, ::IJulia.Msg\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/IJulia/src/execute\_request.jl:158}
+ [7] \textbf{(::Compat.\#inner\#18\{Array\{Any,1\},IJulia.\#execute\_request,Tuple\{ZMQ.Socket,IJulia.Msg\}\})}\textbf{(}\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/Compat/src/Compat.jl:378}
+ [8] \textbf{eventloop}\textbf{(}::ZMQ.Socket\textbf{)} at \textbf{/Users/rishi/.julia/v0.6/IJulia/src/eventloop.jl:8}
+ [9] \textbf{(::IJulia.\#\#14\#17)}\textbf{(}\textbf{)} at \textbf{./task.jl:335}
+while loading In[3], in expression starting on line 2
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} 784×10000 Array\{Float64,2\}:
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  …  0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  …  0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  …  0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         ⋮                        ⋮              ⋱            ⋮                      
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  …  0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  …  0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+         0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n+nb}{I} \PY{o}{=} \PY{n}{eye}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+        
+        \PY{n}{ytst} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10000}\PY{p}{)}
+        \PY{n}{ytrn} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{60000}\PY{p}{)}
+        
+        \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{10000}
+            \PY{n}{ytst}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n+nb}{I}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{k+kt}{Int}\PY{p}{(}\PY{n}{yts}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+        \PY{k}{end}
+        
+        \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{60000}
+            \PY{n}{ytrn}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n+nb}{I}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{k+kt}{Int}\PY{p}{(}\PY{n}{ytr}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+        \PY{k}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{function} \PY{n}{minibatch}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{batchs}\PY{p}{)}
+            \PY{n}{numBatch} \PY{o}{=} \PY{k+kt}{Int}\PY{p}{(}\PY{p}{(}\PY{n}{size}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{n}{batchs}\PY{p}{)}
+            \PY{n}{b} \PY{o}{=} \PY{k+kt}{Array}\PY{p}{\PYZob{}}\PY{k+kt}{Any}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{\PYZcb{}}\PY{p}{(}\PY{n}{numBatch}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{n}{numBatch}
+                \PY{n}{s} \PY{o}{=} \PY{p}{(}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{batchs} \PY{o}{+} \PY{l+m+mi}{1}
+                \PY{n+nb}{e} \PY{o}{=} \PY{n}{s} \PY{o}{+} \PY{n}{batchs} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                \PY{n}{b}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{s}\PY{o}{:}\PY{n+nb}{e}\PY{p}{]}\PY{p}{,}\PY{n}{y}\PY{p}{[}\PY{o}{:}\PY{p}{,}\PY{n}{s}\PY{o}{:}\PY{n+nb}{e}\PY{p}{]}\PY{p}{)}
+            \PY{k}{end}
+            \PY{k}{return} \PY{n}{b}
+        \PY{k}{end}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} minibatch (generic function with 1 method)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{dtst} \PY{o}{=} \PY{n}{minibatch}\PY{p}{(}\PY{n}{xtst}\PY{p}{,}\PY{n}{ytst}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+        \PY{n}{dtrn} \PY{o}{=} \PY{n}{minibatch}\PY{p}{(}\PY{n}{xtrn}\PY{p}{,}\PY{n}{ytrn}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}
+        
+        \PY{n}{x}\PY{p}{,}\PY{n}{y} \PY{o}{=} \PY{n}{dtst}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:} ([0.0 0.0 … 0.0 0.0; 0.0 0.0 … 0.0 0.0; … ; 0.0 0.0 … 0.0 0.0; 0.0 0.0 … 0.0 0.0], [0.0 0.0 … 0.0 0.0; 0.0 0.0 … 0.0 0.0; … ; 0.0 0.0 … 0.0 0.0; 0.0 0.0 … 0.0 1.0])
+\end{Verbatim}
+            
+    \section{Define Line Model}\label{define-line-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{Atype} \PY{o}{=} \PY{k+kt}{Array}\PY{p}{\PYZob{}}\PY{k+kt}{Float32}\PY{p}{\PYZcb{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{function} \PY{n}{linear}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+            \PY{n}{y} \PY{o}{=} \PY{n}{w}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{x} \PY{o}{.+} \PY{n}{w}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+        \PY{k}{end}
+        
+        \PY{n}{winit1}\PY{p}{(}\PY{p}{)}\PY{o}{=}\PY{n}{map}\PY{p}{(}\PY{n}{Atype}\PY{p}{,} \PY{p}{[} \PY{l+m+mf}{0.1}\PY{o}{*}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{784}\PY{p}{)}\PY{p}{,} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} winit1 (generic function with 1 method)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{srand}\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{)}
+        \PY{n}{w} \PY{o}{=} \PY{n}{winit1}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{ypred}\PY{o}{=}\PY{n}{linear}\PY{p}{(}\PY{n}{w}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+         \PY{n}{display}\PY{p}{(}\PY{n}{ypred}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+10×100 Array{Float64,2}:
+ -1.28672    -1.64071   -0.136492   …   0.117446  -1.08333     0.726912
+  0.232317    0.470202  -0.358316      -0.885923   0.346767    0.558885
+  0.0924198   0.388027  -0.482993      -0.326599   0.832922   -1.00615 
+  0.633511    0.361319  -0.0221675      1.15218   -0.0212294  -1.05673 
+ -0.159628    1.11184    0.601998       0.637167   0.582647   -2.39795 
+ -0.939379   -1.22699   -1.12085    …  -2.63157    0.526681   -0.893513
+  0.273288   -0.145058  -0.254768      -0.599916   0.0198374   1.32464 
+  1.50026    -0.962146  -0.425167       0.625563  -0.714307    2.81844 
+  0.740756    0.281956   0.796146       1.15204    1.56253     1.1139  
+  1.57769     2.67207    0.547938       2.09263    1.10826     2.31731 
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{display}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+10×100 Array{Float64,2}:
+ 0.0  0.0  0.0  1.0  0.0  0.0  0.0  0.0  …  0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ 0.0  0.0  1.0  0.0  0.0  1.0  0.0  0.0     0.0  1.0  0.0  1.0  0.0  0.0  0.0
+ 0.0  1.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ 0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     1.0  0.0  0.0  0.0  0.0  0.0  0.0
+ 0.0  0.0  0.0  0.0  1.0  0.0  1.0  0.0     0.0  0.0  1.0  0.0  0.0  0.0  0.0
+ 0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  …  0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ 0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  1.0  0.0
+ 1.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  1.0  0.0  0.0
+ 0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0     0.0  0.0  0.0  0.0  0.0  0.0  0.0
+ 0.0  0.0  0.0  0.0  0.0  0.0  0.0  1.0     0.0  0.0  0.0  0.0  0.0  0.0  1.0
+    \end{verbatim}
+
+    
+    \section{Measuring Error Rate}\label{measuring-error-rate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{sum}\PY{p}{(}\PY{n}{y} \PY{o}{.*} \PY{p}{(}\PY{n}{ypred} \PY{o}{.==} \PY{n}{maximum}\PY{p}{(}\PY{n}{ypred}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 12.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{function} \PY{n}{zeroone}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{model}\PY{p}{)}
+             \PY{n}{ncorr} \PY{o}{=} \PY{n}{ninst} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{k+kp}{in} \PY{n}{data}
+                 \PY{n}{ypred} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                 \PY{n}{ncorr} \PY{o}{+=} \PY{n}{sum}\PY{p}{(}\PY{n}{y} \PY{o}{.*} \PY{p}{(}\PY{n}{ypred} \PY{o}{.==} \PY{n}{maximum}\PY{p}{(}\PY{n}{ypred}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{ninst} \PY{o}{+=} \PY{n}{size}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+             \PY{k}{end}
+             \PY{k}{return} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{ncorr}\PY{o}{/}\PY{n}{ninst}
+         \PY{k}{end}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} zeroone (generic function with 1 method)
+\end{Verbatim}
+            
+    \section{Measuring Loss}\label{measuring-loss}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{c}{\PYZsh{} Calculate cross entropy loss of a model with weights w for one minibatch (x,p)}
+         \PY{c}{\PYZsh{} Use non\PYZhy{}zero l1 or l2 for regularization}
+         \PY{k}{function} \PY{n}{softloss}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{p}\PY{p}{,}\PY{n}{m}\PY{p}{;}\PY{n}{l1}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{l2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}  
+             \PY{n}{y} \PY{o}{=} \PY{n}{m}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{data}
+             \PY{n}{y} \PY{o}{=} \PY{n}{y} \PY{o}{.\PYZhy{}} \PY{n}{maximum}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{c}{\PYZsh{} for numerical stability}
+             \PY{n}{expy} \PY{o}{=} \PY{n}{exp}\PY{o}{.}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+             \PY{n}{logphat} \PY{o}{=} \PY{n}{y} \PY{o}{.\PYZhy{}} \PY{n}{log}\PY{o}{.}\PY{p}{(}\PY{n}{sum}\PY{p}{(}\PY{n}{expy}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{J} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{sum}\PY{p}{(}\PY{n}{p} \PY{o}{.*} \PY{n}{logphat}\PY{p}{)} \PY{o}{/} \PY{n}{size}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}  \PY{c}{\PYZsh{} dividing by number of instances for per\PYZhy{}instance average}
+             \PY{k}{if} \PY{n}{l1} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{;} \PY{n}{J} \PY{o}{+=} \PY{n}{l1} \PY{o}{*} \PY{n}{sum}\PY{p}{(}\PY{n}{vecnorm}\PY{p}{,} \PY{n}{params}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{)}\PY{p}{;} \PY{k}{end}
+             \PY{k}{if} \PY{n}{l2} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{;} \PY{n}{J} \PY{o}{+=} \PY{n}{l2} \PY{o}{*} \PY{n}{sum}\PY{p}{(}\PY{n}{vecnorm}\PY{p}{,} \PY{n}{params}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{)}\PY{p}{;} \PY{k}{end}
+             \PY{k}{return} \PY{n}{J}
+         \PY{k}{end}
+         
+         \PY{c}{\PYZsh{} Calculate cross entropy loss of a model with weights w for one minibatch (x,p)}
+         \PY{c}{\PYZsh{} Use non\PYZhy{}zero l1 or l2 for regularization}
+         \PY{k}{function} \PY{n}{softloss2}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{p}\PY{p}{,}\PY{n}{m}\PY{p}{;}\PY{n}{l1}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{l2}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}  
+             \PY{n}{y} \PY{o}{=} \PY{n}{m}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+             \PY{n}{y} \PY{o}{=} \PY{n}{y} \PY{o}{.\PYZhy{}} \PY{n}{maximum}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{c}{\PYZsh{} for numerical stability}
+             \PY{n}{expy} \PY{o}{=} \PY{n}{exp}\PY{o}{.}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+             \PY{n}{logphat} \PY{o}{=} \PY{n}{y} \PY{o}{.\PYZhy{}} \PY{n}{log}\PY{o}{.}\PY{p}{(}\PY{n}{sum}\PY{p}{(}\PY{n}{expy}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n}{J} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{sum}\PY{p}{(}\PY{n}{p} \PY{o}{.*} \PY{n}{logphat}\PY{p}{)} \PY{o}{/} \PY{n}{size}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}  \PY{c}{\PYZsh{} dividing by number of instances for per\PYZhy{}instance average}
+             \PY{k}{if} \PY{n}{l1} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{;} \PY{n}{J} \PY{o}{+=} \PY{n}{l1} \PY{o}{*} \PY{n}{sum}\PY{p}{(}\PY{n}{vecnorm}\PY{p}{,} \PY{n}{params}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{)}\PY{p}{;} \PY{k}{end}
+             \PY{k}{if} \PY{n}{l2} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{;} \PY{n}{J} \PY{o}{+=} \PY{n}{l2} \PY{o}{*} \PY{n}{sum}\PY{p}{(}\PY{n}{vecnorm}\PY{p}{,} \PY{n}{params}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{)}\PY{p}{;} \PY{k}{end}
+             \PY{k}{return} \PY{n}{J}
+         \PY{k}{end}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} softloss2 (generic function with 1 method)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{k}{function} \PY{n}{avgloss}\PY{p}{(}\PY{n}{data}\PY{p}{,}\PY{n}{m}\PY{p}{)} \PY{c}{\PYZsh{} average loss for the whole dataset}
+             \PY{n}{sum} \PY{o}{=} \PY{n}{cnt} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{k+kp}{in} \PY{n}{data}
+                 \PY{n}{sum} \PY{o}{+=} \PY{n}{softloss}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{m}\PY{p}{)}
+                 \PY{n}{cnt} \PY{o}{+=} \PY{l+m+mi}{1}
+             \PY{k}{end}
+             \PY{k}{return} \PY{n}{sum}\PY{o}{/}\PY{n}{cnt}
+         \PY{k}{end}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} avgloss (generic function with 1 method)
+\end{Verbatim}
+            
+    \section{Training (SGD)}\label{training-sgd}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{m} \PY{o}{=} \PY{n}{Chain}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{784}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{loss}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{s}\PY{p}{)} \PY{o}{=} \PY{n}{softloss2}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{s}\PY{p}{,}\PY{n}{m}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}75}]:} loss (generic function with 1 method)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{k}{using} \PY{n}{Flux}\PY{o}{.}\PY{n}{Tracker}
+         \PY{k}{using} \PY{n}{Flux}\PY{o}{:} \PY{n+nd}{@epochs}
+\end{Verbatim}
+
+
+    \section{Training the Linear Model}\label{training-the-linear-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{n}{trnloss1} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{tstloss1} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{trnerr1} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{tsterr1} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{100}
+             \PY{n}{Flux}\PY{o}{.}\PY{n}{train!}\PY{p}{(}\PY{n}{loss}\PY{p}{,}\PY{n}{dtrn}\PY{p}{,}\PY{n}{SGD}\PY{p}{(}\PY{n}{params}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{trnloss1}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{avgloss}\PY{p}{(}\PY{n}{dtrn}\PY{p}{,}\PY{n}{m}\PY{p}{)}
+             \PY{n}{tstloss1}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{avgloss}\PY{p}{(}\PY{n}{dtst}\PY{p}{,}\PY{n}{m}\PY{p}{)}
+             \PY{n}{trnerr1}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{zeroone}\PY{p}{(}\PY{n}{dtrn}\PY{p}{,}\PY{n}{m}\PY{p}{)}
+             \PY{n}{tsterr1}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{zeroone}\PY{p}{(}\PY{n}{dtst}\PY{p}{,}\PY{n}{m}\PY{p}{)}
+         \PY{k}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{minimum}\PY{p}{(}\PY{n}{tstloss1}\PY{p}{)}\PY{p}{,}\PY{n}{minimum}\PY{p}{(}\PY{n}{tsterr1}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}78}]:} (0.2669880248137341, 0.07420000000000004)
+\end{Verbatim}
+            
+    \section{Overfitting and
+underfitting}\label{overfitting-and-underfitting}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{trnloss1} \PY{n}{tstloss1}\PY{p}{]}\PY{p}{,}\PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{36}\PY{p}{)}\PY{p}{,}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{o}{:}\PY{n}{trnloss} \PY{o}{:}\PY{n}{tstloss}\PY{p}{]}\PY{p}{,}\PY{n}{xlabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{p}\PY{l+s}{o}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{ylabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{L}\PY{l+s}{o}\PY{l+s}{s}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{trnerr1} \PY{n}{tsterr1}\PY{p}{]}\PY{p}{,}\PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{o}{.}\PY{l+m+mi}{06}\PY{p}{,}\PY{o}{.}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,}\PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{o}{:}\PY{n}{trnerr} \PY{o}{:}\PY{n}{tsterr}\PY{p}{]}\PY{p}{,}\PY{n}{xlabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{p}\PY{l+s}{o}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{ylabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{r}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Linear model with L2
+regularization}\label{linear-model-with-l2-regularization}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{m2} \PY{o}{=} \PY{n}{Chain}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{784}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{loss2}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{s}\PY{p}{)} \PY{o}{=} \PY{n}{softloss2}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{s}\PY{p}{,}\PY{n}{m2}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{0.00004}\PY{o}{*}\PY{n}{sum}\PY{p}{(}\PY{n}{vecnorm}\PY{p}{,} \PY{n}{params}\PY{p}{(}\PY{n}{m2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}81}]:} loss2 (generic function with 1 method)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{trnloss2} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{tstloss2} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{trnerr2} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{tsterr2} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{100}
+             \PY{n}{Flux}\PY{o}{.}\PY{n}{train!}\PY{p}{(}\PY{n}{loss2}\PY{p}{,}\PY{n}{dtrn}\PY{p}{,}\PY{n}{SGD}\PY{p}{(}\PY{n}{params}\PY{p}{(}\PY{n}{m2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{trnloss2}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{avgloss}\PY{p}{(}\PY{n}{dtrn}\PY{p}{,}\PY{n}{m2}\PY{p}{)}
+             \PY{n}{tstloss2}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{avgloss}\PY{p}{(}\PY{n}{dtst}\PY{p}{,}\PY{n}{m2}\PY{p}{)}
+             \PY{n}{trnerr2}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{zeroone}\PY{p}{(}\PY{n}{dtrn}\PY{p}{,}\PY{n}{m2}\PY{p}{)}
+             \PY{n}{tsterr2}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{zeroone}\PY{p}{(}\PY{n}{dtst}\PY{p}{,}\PY{n}{m2}\PY{p}{)}
+         \PY{k}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{n}{minimum}\PY{p}{(}\PY{n}{tstloss2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}83}]:} 0.2667860706832847
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{trnloss1} \PY{n}{tstloss1} \PY{n}{trnloss2} \PY{n}{tstloss2}\PY{p}{]}\PY{p}{,}\PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.2}\PY{p}{,}\PY{l+m+mf}{0.36}\PY{p}{)}\PY{p}{,}
+             \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{o}{:}\PY{n}{trnloss} \PY{o}{:}\PY{n}{tstloss} \PY{o}{:}\PY{n}{trnlossL2} \PY{o}{:}\PY{n}{tstlossL2}\PY{p}{]}\PY{p}{,}\PY{n}{xlabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{p}\PY{l+s}{o}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{ylabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{L}\PY{l+s}{o}\PY{l+s}{s}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{)} 
+         \PY{c}{\PYZsh{} overfitting less but results do not improve much}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}85}]:} \PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{trnerr1} \PY{n}{tsterr1} \PY{n}{trnerr2} \PY{n}{tsterr2}\PY{p}{]}\PY{p}{,}\PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.06}\PY{p}{,}\PY{l+m+mf}{0.10}\PY{p}{)}\PY{p}{,}
+             \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{o}{:}\PY{n}{trnerr} \PY{o}{:}\PY{n}{tsterr} \PY{o}{:}\PY{n}{trnerrL2} \PY{o}{:}\PY{n}{tsterrL2}\PY{p}{]}\PY{p}{,}\PY{n}{xlabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{p}\PY{l+s}{o}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{ylabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{r}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Multi Layer Perceptron}\label{multi-layer-perceptron}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{m3} \PY{o}{=} \PY{n}{Chain}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{784}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{,}\PY{n}{Flux}\PY{o}{.}\PY{n}{relu}\PY{p}{)}\PY{p}{,} \PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{loss3}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{s}\PY{p}{)} \PY{o}{=} \PY{n}{softloss2}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{s}\PY{p}{,}\PY{n}{m3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}86}]:} loss3 (generic function with 1 method)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{n}{trnloss3} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{tstloss3} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{trnerr3} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{tsterr3} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{100}
+             \PY{n}{Flux}\PY{o}{.}\PY{n}{train!}\PY{p}{(}\PY{n}{loss3}\PY{p}{,}\PY{n}{dtrn}\PY{p}{,}\PY{n}{SGD}\PY{p}{(}\PY{n}{params}\PY{p}{(}\PY{n}{m3}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{trnloss3}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{avgloss}\PY{p}{(}\PY{n}{dtrn}\PY{p}{,}\PY{n}{m3}\PY{p}{)}
+             \PY{n}{tstloss3}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{avgloss}\PY{p}{(}\PY{n}{dtst}\PY{p}{,}\PY{n}{m3}\PY{p}{)}
+             \PY{n}{trnerr3}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{zeroone}\PY{p}{(}\PY{n}{dtrn}\PY{p}{,}\PY{n}{m3}\PY{p}{)}
+             \PY{n}{tsterr3}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{zeroone}\PY{p}{(}\PY{n}{dtst}\PY{p}{,}\PY{n}{m3}\PY{p}{)}
+         \PY{k}{end}
+         \PY{n}{minimum}\PY{p}{(}\PY{n}{tstloss3}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}87}]:} 0.08537305167011289
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{trnloss1} \PY{n}{tstloss1} \PY{n}{trnloss3} \PY{n}{tstloss3}\PY{p}{]}\PY{p}{,}\PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{l+m+mf}{0.0}\PY{p}{,}\PY{l+m+mf}{0.4}\PY{p}{)}\PY{p}{,}
+             \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{o}{:}\PY{n}{trnLin} \PY{o}{:}\PY{n}{tstLin} \PY{o}{:}\PY{n}{trnMLP} \PY{o}{:}\PY{n}{tstMLP}\PY{p}{]}\PY{p}{,}\PY{n}{xlabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{p}\PY{l+s}{o}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{ylabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{L}\PY{l+s}{o}\PY{l+s}{s}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{)}  
+         \PY{c}{\PYZsh{} solves the underfitting problem!}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{trnerr1} \PY{n}{tsterr1} \PY{n}{trnerr3} \PY{n}{tsterr3}\PY{p}{]}\PY{p}{,}\PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{,}
+             \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{o}{:}\PY{n}{trnLin} \PY{o}{:}\PY{n}{tstLin} \PY{o}{:}\PY{n}{trnMLP} \PY{o}{:}\PY{n}{tstMLP}\PY{p}{]}\PY{p}{,}\PY{n}{xlabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{p}\PY{l+s}{o}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{n}{ylabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{r}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{\PYZdq{}}\PY{p}{)}  
+         \PY{c}{\PYZsh{} error improves from 8\PYZpc{} to 2\PYZpc{}!}
+\end{Verbatim}
+
+
+    \section{MLP with Dropout}\label{mlp-with-dropout}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{n}{m4} \PY{o}{=} \PY{n}{Chain}\PY{p}{(}\PY{n}{Dropout}\PY{p}{(}\PY{l+m+mf}{0.2}\PY{p}{)}\PY{p}{,}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{784}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{,}\PY{n}{Flux}\PY{o}{.}\PY{n}{relu}\PY{p}{)}\PY{p}{,}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          \PY{n}{loss4}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{s}\PY{p}{)} \PY{o}{=} \PY{n}{softloss2}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{s}\PY{p}{,}\PY{n}{m4}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{0.1}\PY{o}{*}\PY{p}{(}\PY{n}{sum}\PY{p}{(}\PY{n}{abs}\PY{p}{,}\PY{n}{m4}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{W}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+                                                  \PY{o}{+}\PY{n}{sum}\PY{p}{(}\PY{n}{abs}\PY{p}{,}\PY{n}{m4}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{W}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+                                                  \PY{o}{+}\PY{n}{sum}\PY{p}{(}\PY{n}{abs}\PY{p}{,}\PY{n}{m4}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{b}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+                                                  \PY{o}{+}\PY{n}{sum}\PY{p}{(}\PY{n}{abs}\PY{p}{,}\PY{n}{m4}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{b}\PY{o}{.}\PY{n}{data}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}119}]:} loss4 (generic function with 1 method)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{n}{trnloss4} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+          \PY{n}{tstloss4} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+          \PY{n}{trnerr4} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+          \PY{n}{tsterr4} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{100}
+              \PY{n}{Flux}\PY{o}{.}\PY{n}{testmode!}\PY{p}{(}\PY{n}{m4}\PY{p}{,} \PY{k+kc}{false}\PY{p}{)}
+              \PY{n}{Flux}\PY{o}{.}\PY{n}{train!}\PY{p}{(}\PY{n}{loss4}\PY{p}{,}\PY{n}{dtrn}\PY{p}{,}\PY{n}{SGD}\PY{p}{(}\PY{n}{params}\PY{p}{(}\PY{n}{m4}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              \PY{n}{Flux}\PY{o}{.}\PY{n}{testmode!}\PY{p}{(}\PY{n}{m4}\PY{p}{)}
+              \PY{n}{trnloss4}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{avgloss}\PY{p}{(}\PY{n}{dtrn}\PY{p}{,}\PY{n}{m4}\PY{p}{)}
+              \PY{n}{tstloss4}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{avgloss}\PY{p}{(}\PY{n}{dtst}\PY{p}{,}\PY{n}{m4}\PY{p}{)}
+              \PY{n}{trnerr4}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{zeroone}\PY{p}{(}\PY{n}{dtrn}\PY{p}{,}\PY{n}{m4}\PY{p}{)}
+              \PY{n}{tsterr4}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{zeroone}\PY{p}{(}\PY{n}{dtst}\PY{p}{,}\PY{n}{m4}\PY{p}{)}
+          \PY{k}{end}
+          \PY{n}{minimum}\PY{p}{(}\PY{n}{tstloss4}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}120}]:} 0.06691325744877206
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{trnloss3} \PY{n}{tstloss3} \PY{n}{trnloss4} \PY{n}{tstloss4}\PY{p}{]}\PY{p}{,}\PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.15}\PY{p}{)}\PY{p}{,}
+              \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{o}{:}\PY{n}{trnMLP} \PY{o}{:}\PY{n}{tstMLP} \PY{o}{:}\PY{n}{trnDropout} \PY{o}{:}\PY{n}{tstDropout}\PY{p}{]}\PY{p}{,}\PY{n}{xlabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{p}\PY{l+s}{o}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{L}\PY{l+s}{o}\PY{l+s}{s}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{)}  
+          \PY{c}{\PYZsh{} overfitting less, loss results improve}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{trnerr3} \PY{n}{tsterr3} \PY{n}{trnerr4} \PY{n}{tsterr4}\PY{p}{]}\PY{p}{,}\PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.04}\PY{p}{)}\PY{p}{,}
+              \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{o}{:}\PY{n}{trnMLP} \PY{o}{:}\PY{n}{tstMLP} \PY{o}{:}\PY{n}{trnDropout} \PY{o}{:}\PY{n}{tstDropout}\PY{p}{]}\PY{p}{,}\PY{n}{xlabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{p}\PY{l+s}{o}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{r}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{\PYZdq{}}\PY{p}{)}  
+          \PY{c}{\PYZsh{} this time error also improves slightly}
+\end{Verbatim}
+
+
+    \section{MLP with DropConnect}\label{mlp-with-dropconnect}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{k}{function} \PY{n}{DropCon}\PY{p}{(}\PY{n}{inD}\PY{p}{,}\PY{n}{outD}\PY{p}{,}\PY{n}{p}\PY{p}{)}
+              \PY{n}{W} \PY{o}{=} \PY{n}{randn}\PY{p}{(}\PY{n}{outD}\PY{p}{,}\PY{n}{inD}\PY{p}{)}
+              \PY{n}{b} \PY{o}{=} \PY{n}{randn}\PY{p}{(}\PY{n}{outD}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+              \PY{n}{M} \PY{o}{=} \PY{n}{rand}\PY{p}{(}\PY{n}{outD}\PY{p}{,}\PY{n}{inD}\PY{p}{)} \PY{o}{.\PYZlt{}} \PY{n}{p}
+              \PY{n}{x} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{p}{(}\PY{n}{M} \PY{o}{.*} \PY{n}{W}\PY{p}{)} \PY{o}{*} \PY{n}{x} \PY{o}{.+} \PY{n}{b}
+          \PY{k}{end}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}124}]:} DropCon (generic function with 1 method)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}166}]:} \PY{n}{W1} \PY{o}{=} \PY{n}{param}\PY{p}{(}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{784}\PY{p}{)}\PY{p}{)}
+          \PY{n}{W2} \PY{o}{=} \PY{n}{param}\PY{p}{(}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{64}\PY{p}{)}\PY{p}{)}
+          \PY{n}{b1} \PY{o}{=} \PY{n}{param}\PY{p}{(}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          \PY{n}{b2} \PY{o}{=} \PY{n}{param}\PY{p}{(}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+          
+          \PY{k}{function} \PY{n}{predict}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+              \PY{n}{M1} \PY{o}{=} \PY{n}{rand}\PY{p}{(}\PY{n}{size}\PY{p}{(}\PY{n}{W1}\PY{p}{)}\PY{p}{)} \PY{o}{.\PYZlt{}} \PY{l+m+mf}{0.2}
+              \PY{n}{M2} \PY{o}{=} \PY{n}{rand}\PY{p}{(}\PY{n}{size}\PY{p}{(}\PY{n}{W2}\PY{p}{)}\PY{p}{)} \PY{o}{.\PYZlt{}} \PY{l+m+mf}{0.2}
+              \PY{k}{return} \PY{p}{(}\PY{n}{M2} \PY{o}{.*} \PY{n}{W2}\PY{p}{)} \PY{o}{*}\PY{p}{(}\PY{p}{(}\PY{n}{M1} \PY{o}{.*}\PY{n}{W1}\PY{p}{)}\PY{o}{*}\PY{n}{x} \PY{o}{.+} \PY{n}{b1}\PY{p}{)} \PY{o}{.+} \PY{n}{b2}
+          \PY{k}{end}
+          
+          \PY{n}{loss5}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{s}\PY{p}{)} \PY{o}{=} \PY{n}{softloss2}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{s}\PY{p}{,}\PY{n}{predict}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{0.1}\PY{o}{*}\PY{p}{(}\PY{n}{sum}\PY{p}{(}\PY{n}{abs}\PY{p}{,}\PY{n}{W1}\PY{p}{)}
+                                                  \PY{o}{+}\PY{n}{sum}\PY{p}{(}\PY{n}{abs}\PY{p}{,}\PY{n}{W2}\PY{p}{)}
+                                                  \PY{o}{+}\PY{n}{sum}\PY{p}{(}\PY{n}{abs}\PY{p}{,}\PY{n}{b1}\PY{p}{)}
+                                                  \PY{o}{+}\PY{n}{sum}\PY{p}{(}\PY{n}{abs}\PY{p}{,}\PY{n}{b2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}166}]:} loss5 (generic function with 1 method)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{trnloss5} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+        \PY{n}{tstloss5} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+        \PY{n}{trnerr5} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+        \PY{n}{tsterr5} \PY{o}{=} \PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}\PY{o}{:}\PY{l+m+mi}{100}
+            \PY{n}{Flux}\PY{o}{.}\PY{n}{train!}\PY{p}{(}\PY{n}{loss5}\PY{p}{,}\PY{n}{dtrn}\PY{p}{,}\PY{n}{SGD}\PY{p}{(}\PY{p}{[}\PY{n}{W1}\PY{p}{,} \PY{n}{b1}\PY{p}{,} \PY{n}{W2}\PY{p}{,} \PY{n}{b2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{n}{trnloss5}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{avgloss}\PY{p}{(}\PY{n}{dtrn}\PY{p}{,}\PY{n}{predict}\PY{p}{)}
+            \PY{n}{tstloss5}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{avgloss}\PY{p}{(}\PY{n}{dtst}\PY{p}{,}\PY{n}{predict}\PY{p}{)}
+            \PY{n}{trnerr5}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{zeroone}\PY{p}{(}\PY{n}{dtrn}\PY{p}{,}\PY{n}{predict}\PY{p}{)}
+            \PY{n}{tsterr5}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{zeroone}\PY{p}{(}\PY{n}{dtst}\PY{p}{,}\PY{n}{predict}\PY{p}{)}
+        \PY{k}{end}
+        \PY{n}{minimum}\PY{p}{(}\PY{n}{tstloss5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{trnloss3} \PY{n}{tstloss3} \PY{n}{trnloss5} \PY{n}{tstloss5}\PY{p}{]}\PY{p}{,}\PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.15}\PY{p}{)}\PY{p}{,}
+            \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{o}{:}\PY{n}{trnMLP} \PY{o}{:}\PY{n}{tstMLP} \PY{o}{:}\PY{n}{trnDropout} \PY{o}{:}\PY{n}{tstDropout}\PY{p}{]}\PY{p}{,}\PY{n}{xlabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{p}\PY{l+s}{o}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{L}\PY{l+s}{o}\PY{l+s}{s}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{)}  
+        \PY{c}{\PYZsh{} overfitting less, loss results improve}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{trnerr3} \PY{n}{tsterr3} \PY{n}{trnerr5} \PY{n}{tsterr5}\PY{p}{]}\PY{p}{,}\PY{n}{ylim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.04}\PY{p}{)}\PY{p}{,}
+            \PY{n}{labels}\PY{o}{=}\PY{p}{[}\PY{o}{:}\PY{n}{trnMLP} \PY{o}{:}\PY{n}{tstMLP} \PY{o}{:}\PY{n}{trnDropout} \PY{o}{:}\PY{n}{tstDropout}\PY{p}{]}\PY{p}{,}\PY{n}{xlabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{p}\PY{l+s}{o}\PY{l+s}{c}\PY{l+s}{h}\PY{l+s}{s}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s}{\PYZdq{}}\PY{l+s}{E}\PY{l+s}{r}\PY{l+s}{r}\PY{l+s}{o}\PY{l+s}{r}\PY{l+s}{\PYZdq{}}\PY{p}{)}  
+        \PY{c}{\PYZsh{} this time error also improves slightly}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
